@@ -19,11 +19,9 @@ const HostVanDetail = () => {
   if (!currentVan)
     return <div className="flex justify-center items-center">Loading...</div>;
 
-  console.log(currentVan);
-  const { name, type, price, imageUrl } = currentVan;
 
   return (
-    <div>
+    <div className="flex flex-col gap-8 pb-8">
       <section>
         <Link to=".." relative="path">
           <div className="flex container">
@@ -46,14 +44,18 @@ const HostVanDetail = () => {
           </div>
         </Link>
       </section>
-      <section className="host-van-details">
-        <div className="host-van-details-img-div">
-          <img src={imageUrl} alt="" />
+      <section className="host-van-details container bg-white p-6 grid gap-6">
+        <div className="host-van-details-img-div flex gap-6 items-center">
+          <img
+            src={currentVan.imageUrl}
+            alt=""
+            className="max-w-[50%] object-contain"
+          />
           <div>
-            <TypeBtn />
-            <h3>{name}</h3>
-            <div>
-              <h4>{price}</h4>
+            <TypeBtn type={currentVan.type} />
+            <h4>{currentVan.name}</h4>
+            <div className="flex">
+              <h5>{currentVan.price}</h5>
               <span>/day</span>
             </div>
           </div>
@@ -63,6 +65,7 @@ const HostVanDetail = () => {
             <li>
               <NavLink
                 to="."
+                className="font-semibold"
                 style={({ isActive }) =>
                   isActive
                     ? { textDecoration: "underline" }
@@ -76,6 +79,7 @@ const HostVanDetail = () => {
             <li>
               <NavLink
                 to="./pricing"
+                className="font-semibold"
                 style={({ isActive }) =>
                   isActive
                     ? { textDecoration: "underline" }
@@ -88,6 +92,7 @@ const HostVanDetail = () => {
             <li>
               <NavLink
                 to="./photos"
+                className="font-semibold"
                 style={({ isActive }) =>
                   isActive
                     ? { textDecoration: "underline" }
@@ -99,7 +104,7 @@ const HostVanDetail = () => {
             </li>
           </ul>
         </nav>
-        <Outlet />
+        <Outlet context={{ ...currentVan }} />
       </section>
     </div>
   );

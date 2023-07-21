@@ -18,24 +18,27 @@ const VanDetails = () => {
 
   return (
     <div className="container flex flex-col gap-12 pb-28">
-      <div className="flex">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
-          />
-        </svg>
+      <Link to={".."}
+      relative="path">
+        <div className="flex">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18"
+            />
+          </svg>
 
-        <small className="font-semibold underline">Back to all vans</small>
-      </div>
+          <small className="font-semibold underline">Back to all vans</small>
+        </div>
+      </Link>
       <div className="van-detail-img">
         <img src={van.imageUrl} alt={van.description} className="rounded-md" />
       </div>

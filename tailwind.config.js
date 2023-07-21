@@ -16,6 +16,7 @@ export default {
       "orange-lighter": "#FFEAD0",
       "orange-light": "#FFCC8D",
       "orange-dark": "#E17654",
+      white: "#FFFFFF",
     },
     extend: {
       backgroundImage: {

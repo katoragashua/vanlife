@@ -20,7 +20,7 @@ const TypeBtn = ({ type }) => {
   
   return (
     <span
-      className="flex px-4 py-2 font-semibold rounded-md self-start"
+      className="flex justify-center px-4 py-2 font-semibold rounded-md self-start"
       style={{ backgroundColor: `${btnColor}`, color: "white" }}
     >
       <Link>{type}</Link>
