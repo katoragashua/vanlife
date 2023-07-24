@@ -9,7 +9,7 @@
 }
 
 :root {
-    --text-color: white;
+  --text-color: white;
 }
 
 html,
@@ -17,7 +17,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100%;
-  background-color: #FFF7ED;
+  background-color: #fff7ed;
 }
 
 h1 {
@@ -45,19 +45,19 @@ h6 {
 }
 
 .container {
-  @apply w-[90%] ;
+  @apply w-[90%];
   margin: 0 auto;
 }
 
 .home {
-     -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    color: var(--text-color);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  color: var(--text-color);
 }
 
 .text-shadow {
-    text-shadow: 1px 1px 1px black;
+  text-shadow: 1px 1px 1px black;
 }
 
 /* ABOUT page */
@@ -65,7 +65,6 @@ h6 {
   background-color: black;
   color: var(--text-color);
 }
-
 
 /* VANS Page */
 
@@ -77,4 +76,20 @@ h6 {
 
 a:hover {
   text-decoration: underline;
+}
+
+.filter-btn {
+  @apply text-center text-white px-4 py-2 font-semibold rounded-md self-start bg-orange-light hover:cursor-pointer;
+}
+
+.selected-simple {
+  backgroundcolor: #e17654;
+}
+
+.selected-rugged {
+  backgroundcolor: #115e59;
+}
+
+.selected-luxury {
+  backgroundcolor: #161616;
 }

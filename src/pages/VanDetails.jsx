@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../useFetch";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useLocation } from "react-router-dom";
 import TypeBtn from "../components/TypeBtn";
 import BtnLarge from "../components/BtnLarge";
 
@@ -8,6 +8,12 @@ const VanDetails = () => {
   const [van, setVan] = useState(() => "");
   const { id } = useParams();
   const { fetchData } = useFetch();
+
+  const location = useLocation()
+
+  const search  = location.state?.search || ""
+  const type = location.state?.type || "all"
+
   useEffect(() => {
     const fetchVan = async () => {
       const data = await fetchData(`/api/vans/${id}`);
@@ -16,9 +22,11 @@ const VanDetails = () => {
     fetchVan();
   }, []);
 
+
+
   return (
     <div className="container flex flex-col gap-12 pb-28">
-      <Link to={".."}
+      <Link to={`..${search}`}
       relative="path">
         <div className="flex">
           <svg
@@ -36,7 +44,7 @@ const VanDetails = () => {
             />
           </svg>
 
-          <small className="font-semibold underline">Back to all vans</small>
+          <small className="font-semibold underline">Back to {type} vans</small>
         </div>
       </Link>
       <div className="van-detail-img">

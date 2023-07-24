@@ -2,14 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TypeBtn from "./TypeBtn";
 
-const Van = (van) => {
-  const { id, name, price, description, imageUrl, type } = van;
-  
+const Van = (props) => {
+  const { id, name, price, description, imageUrl, type } = props.van;
+  const search = props.search;
 
   return (
     <div className="flex flex-col gap-4">
       <div className="van-image">
-        <Link to={`/vans/${id}`}>
+        <Link to={`/vans/${id}`}
+        state={{...search}}>
           <img
             src={imageUrl}
             alt={description}

@@ -78,7 +78,7 @@ const HostVanDetail = () => {
             </li>
             <li>
               <NavLink
-                to="./pricing"
+                to="pricing"
                 className="font-semibold"
                 style={({ isActive }) =>
                   isActive
@@ -91,7 +91,7 @@ const HostVanDetail = () => {
             </li>
             <li>
               <NavLink
-                to="./photos"
+                to="photos"
                 className="font-semibold"
                 style={({ isActive }) =>
                   isActive
