@@ -19,7 +19,6 @@ const HostVanDetail = () => {
   if (!currentVan)
     return <div className="flex justify-center items-center">Loading...</div>;
 
-
   return (
     <div className="flex flex-col gap-8 pb-8">
       <section>

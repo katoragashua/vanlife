@@ -16,7 +16,7 @@ const Details = () => {
         <span>{description}</span>
       </div>
       <div>
-        <span className="font-bold mr-2">Viscibilty:</span>{" "}
+        <span className="font-bold mr-2">Visibility:</span>{" "}
         <span>Public</span>
       </div>
     </div>

@@ -9,8 +9,7 @@ const Van = (props) => {
   return (
     <div className="flex flex-col gap-4">
       <div className="van-image">
-        <Link to={`/vans/${id}`}
-        state={{...search}}>
+        <Link to={`/vans/${id}`} state={{ ...search }}>
           <img
             src={imageUrl}
             alt={description}

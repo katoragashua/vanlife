@@ -56,10 +56,7 @@ const VanDetails = () => {
         <h2>{van.name}</h2>
         <h3>${van.price}/day</h3>
         <p>
-          The Modest Explorer is a van designed to get you out of the house and
-          into nature. This beauty is equipped with solar panels, a composting
-          toilet, a water tank and kitchenette. The idea is that you can pack up
-          your home and escape for a weekend or even longer!
+          {van.description}
         </p>
       </div>
       <BtnLarge text={"Rent this van"} />

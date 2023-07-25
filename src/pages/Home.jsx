@@ -8,7 +8,7 @@ const Home = () => {
       <div className="container flex justify-center">
         <main className="flex flex-col gap-8 justify-center text-center">
           <h1 className="text-shadow max-w-2xl">
-            You got the travel plans, we go the travel vans.
+            You got the travel plans, we got the travel vans.
           </h1>
           <h4 className="text-shadow max-w-2xl">
             Add adventure to your life by joining the #vanlife movement. Rent
