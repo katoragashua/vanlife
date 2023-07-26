@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
 import Van from "../components/Van";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams, useLoaderData, useRouteError } from "react-router-dom";
 import TypeBtn from "../components/TypeBtn";
+import useFetch from "../useFetch.js"
+
+export const loader = async({request, params}) => {
+  const {fetchData} = useFetch();
+  const vans = await fetchData("/api/vans");
+  return vans
+}
 
 const Vans = () => {
-  const [vans, setVans] = useState(() => []);
+  const error = useRouteError()
+  console.log(error);
+  const data = useLoaderData();
+  console.log(data);
+  const [vans, setVans] = useState(() => data.vans);
   const [searchParams, setSearchParams] = useSearchParams();
+  
 
   function hoverStyle(type) {
     let classes = "";
@@ -46,26 +58,32 @@ const Vans = () => {
     return bg;
   }
 
-  useEffect(() => {
-    const fetchVans = async () => {
-      try {
-        const res = await fetch("/api/vans");
-        if (!res.ok) {
-          throw new Error("Couldn't fetch vans'.");
-        }
-        const data = await res.json();
-        setVans(data.vans);
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchVans = async () => {
+  //     try {
+  //       const res = await fetch("/api/van");
+  //       if (!res.ok) {
+  //         throw new Error("Couldn't fetch vans'.");
+  //       }
+  //       const data = await res.json();
+  //       setVans(data.vans);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    fetchVans();
-  }, []);
+  //   fetchVans();
+  // }, []);
 
   const listedVans = vans
     .filter((van) => (typeFilter ? van.type === typeFilter : van))
-    .map((van) => <Van key={van.id} van={van} search={{search: `?${searchParams.toString()}`, type: typeFilter}} />);
+    .map((van) => (
+      <Van
+        key={van.id}
+        van={van}
+        search={{ search: `?${searchParams.toString()}`, type: typeFilter }}
+      />
+    ));
 
   // An array of van types/ Removing duplicates
   const vanTypes = [...new Set(vans.map((van) => van.type))];

@@ -6,16 +6,19 @@ import TypeBtn from "../../components/TypeBtn";
 const HostVanDetail = () => {
   const { id } = useParams();
   const [currentVan, setCurrentVan] = useState(() => null);
+  const [loading, setLoading] = useState(() => false)
   const { fetchData } = useFetch();
 
   useEffect(() => {
     const fetchCurrentVan = async () => {
+      setLoading(true)
       const van = await fetchData(`/api/host/vans/${id}`);
       setCurrentVan(van.vans);
+      setLoading(false)
     };
     fetchCurrentVan();
   }, []);
-
+  
   if (!currentVan)
     return <div className="flex justify-center items-center">Loading...</div>;
 

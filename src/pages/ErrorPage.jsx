@@ -1,7 +1,13 @@
-const ErrorPage = () => {
-return <div className="container">
-    <h1>Page not found!</h1>
-</div>
-}
+import { useRouteError } from "react-router-dom";
 
-export default ErrorPage
+const ErrorPage = () => {
+  const error = useRouteError();
+  console.log(error);
+  return (
+    <div className="container">
+      <h1>Page not found!</h1>
+    </div>
+  );
+};
+
+export default ErrorPage;

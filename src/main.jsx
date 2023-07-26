@@ -13,7 +13,7 @@ import RootLayout from "./layouts/RootLayout.jsx";
 import HostLayout from "./layouts/HostLayout.jsx";
 import ErrorPage from "./pages/ErrorPage.jsx";
 import About from "./pages/About.jsx";
-import Vans from "./pages/Vans.jsx";
+import Vans, { loader as vansLoader } from "./pages/Vans.jsx";
 import VanDetails from "./pages/VanDetails.jsx";
 import Dashboard from "./pages/Dashboard";
 import Income from "./pages/host/income";
@@ -34,22 +34,23 @@ import "./server";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={"/"} element={<RootLayout />} errorElement={<ErrorPage />}>
+    <Route path={"/"} element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path={"about"} element={<About />} />
-      <Route path={"vans"} element={<Vans />} />
+      <Route path={"vans"} element={<Vans />} loader={vansLoader} errorElement={<ErrorPage />} />
       <Route path={"vans/:id"} element={<VanDetails />} />
       <Route path={"host"} element={<HostLayout />}>
         <Route index element={<Dashboard />} />
         <Route path={"income"} element={<Income />} />
         <Route path={"vans"} element={<HostVans />} />
-        <Route path={"vans/:id"} element={<HostVanDetail />}>
+        <Route path={"vans/:id"} element={<HostVanDetail />} >
           <Route index element={<Details />} />
           <Route path={"pricing"} element={<Pricing />} />
           <Route path={"photos"} element={<Photos />} />
         </Route>
         <Route path={"reviews"} element={<Reviews />} />
       </Route>
+      <Route path={"*"} element={<ErrorPage />} />
     </Route>
   )
 );
