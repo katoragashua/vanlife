@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../../useFetch";
-import { useParams, NavLink, Outlet, Link } from "react-router-dom";
+import {
+  useParams,
+  NavLink,
+  Outlet,
+  Link,
+  useLoaderData,
+} from "react-router-dom";
 import TypeBtn from "../../components/TypeBtn";
 
+export const loader = async ({ request, params }) => {
+  const { fetchData } = useFetch();
+  const vans = await fetchData("/api/host/vans", params.id);
+  console.log(vans);
+  return vans;
+};
+
 const HostVanDetail = () => {
+  const data = useLoaderData();
   const { id } = useParams();
-  const [currentVan, setCurrentVan] = useState(() => null);
+  const [currentVan, setCurrentVan] = useState(() => data.vans);
   const [loading, setLoading] = useState(() => false)
   const { fetchData } = useFetch();
 

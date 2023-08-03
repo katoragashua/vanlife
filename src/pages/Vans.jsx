@@ -12,9 +12,7 @@ export const loader = async({request, params}) => {
 
 const Vans = () => {
   const error = useRouteError()
-  console.log(error);
   const data = useLoaderData();
-  console.log(data);
   const [vans, setVans] = useState(() => data.vans);
   const [searchParams, setSearchParams] = useSearchParams();
   

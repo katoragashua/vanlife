@@ -61,7 +61,14 @@ h6 {
   text-shadow: 1px 1px 1px black;
 }
 
-/* ABOUT page */
+/* LOGIN Page */
+.form-inputs, .form-inputs hr {
+  border-color: slategrey;
+}
+
+
+
+/* ABOUT Page */
 .card span {
   background-color: black;
   color: var(--text-color);

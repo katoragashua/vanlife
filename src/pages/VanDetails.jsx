@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from "react";
 import useFetch from "../useFetch";
-import { useParams, Link, useLocation } from "react-router-dom";
+import { useParams, Link, useLocation, useLoaderData } from "react-router-dom";
 import TypeBtn from "../components/TypeBtn";
 import BtnLarge from "../components/BtnLarge";
 
+export const loader = async({request, params}) => {
+  const {fetchData} = useFetch();
+  const vans = await fetchData("/api/vans", params.id);
+  return vans
+}
+
+
 const VanDetails = () => {
-  const [van, setVan] = useState(() => "");
+  const data = useLoaderData()
+  const [van, setVan] = useState(() => data.vans);
   const { id } = useParams();
   const { fetchData } = useFetch();
 
@@ -14,13 +22,13 @@ const VanDetails = () => {
   const search  = location.state?.search || ""
   const type = location.state?.type || "all"
 
-  useEffect(() => {
-    const fetchVan = async () => {
-      const data = await fetchData(`/api/vans/${id}`);
-      setVan(data.vans);
-    };
-    fetchVan();
-  }, []);
+  // useEffect(() => {
+  //   const fetchVan = async () => {
+  //     const data = await fetchData(`/api/vans/${id}`);
+  //     setVan(data.vans);
+  //   };
+  //   fetchVan();
+  // }, []);
 
 
 
