@@ -10,6 +10,8 @@ export const loader = async({request, params}) => {
   return vans
 }
 
+
+
 const Vans = () => {
   const error = useRouteError()
   const data = useLoaderData();

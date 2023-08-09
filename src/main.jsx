@@ -28,6 +28,7 @@ import Pricing from "./pages/vans/Pricing";
 import Photos from "./pages/vans/Photos";
 import Login from "./pages/Login";
 import { requireAuth } from "../utils/requireAuth";
+import AuthRequired from "./AuthRequired";
 
 // import { vanServer } from "./server.js";
 
@@ -54,11 +55,14 @@ const router = createBrowserRouter(
         loader={vanDetailsLoader}
         element={<VanDetails />}
       />
+      {/* <Route element={<AuthRequired />}> */}
       <Route path={"host"} element={<HostLayout />}>
         <Route
           index
           element={<Dashboard />}
-          loader={async () => await requireAuth()}
+          loader={async () => {
+               return await requireAuth();
+            }}
         />
         <Route path={"income"} element={<Income />} />
         <Route path={"vans"} loader={hostVansLoader} element={<HostVans />} />
@@ -73,6 +77,7 @@ const router = createBrowserRouter(
         </Route>
         <Route path={"reviews"} element={<Reviews />} />
       </Route>
+      {/* </Route> */}
       {/* <Route path={"*"} element={<ErrorPage />} /> */}
     </Route>
   )

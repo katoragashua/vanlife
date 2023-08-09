@@ -12,6 +12,7 @@ export const loader = async ({ request, params }) => {
 
 const HostVans = () => {
   const data = useLoaderData()
+  console.log(data);
   const [hostVans, setHostVans] = useState(() => data.vans);
 
   // useEffect(() => {
