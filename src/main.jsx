@@ -26,10 +26,11 @@ import HostVanDetail, {
 import Details from "./pages/vans/Details";
 import Pricing from "./pages/vans/Pricing";
 import Photos from "./pages/vans/Photos";
-import Login from "./pages/Login";
+import Login, {
+  loader as loginLoader,
+  action as loginAction,
+} from "./pages/Login";
 import { requireAuth } from "../utils/requireAuth";
-import AuthRequired from "./AuthRequired";
-
 // import { vanServer } from "./server.js";
 
 // if (process.env.NODE_ENV === "development") {
@@ -43,7 +44,12 @@ const router = createBrowserRouter(
     <Route path={"/"} element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path={"about"} element={<About />} />
-      <Route path={"login"} element={<Login />} />
+      <Route
+        path={"login"}
+        element={<Login />}
+        loader={loginLoader}
+        action={loginAction}
+      />
       <Route
         path={"vans"}
         element={<Vans />}
@@ -55,14 +61,13 @@ const router = createBrowserRouter(
         loader={vanDetailsLoader}
         element={<VanDetails />}
       />
-      {/* <Route element={<AuthRequired />}> */}
       <Route path={"host"} element={<HostLayout />}>
         <Route
           index
           element={<Dashboard />}
           loader={async () => {
-               return await requireAuth();
-            }}
+            return await requireAuth();
+          }}
         />
         <Route path={"income"} element={<Income />} />
         <Route path={"vans"} loader={hostVansLoader} element={<HostVans />} />

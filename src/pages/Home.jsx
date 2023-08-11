@@ -14,7 +14,7 @@ const Home = () => {
             Add adventure to your life by joining the #vanlife movement. Rent
             the perfect van to make your perfect road trip.
           </h4>
-          <BtnLarge text={"Find your van"}/>
+          <BtnLarge text={"Find your van"} to={"/vans"}/>
         </main>
       </div>
     </div>

@@ -18,23 +18,23 @@ export const loader = async ({ request, params }) => {
 
 const HostVanDetail = () => {
   const data = useLoaderData();
-  const { id } = useParams();
+  // const { id } = useParams();
   const [currentVan, setCurrentVan] = useState(() => data.vans);
-  const [loading, setLoading] = useState(() => false)
-  const { fetchData } = useFetch();
+  // const [loading, setLoading] = useState(() => false)
+  // const { fetchData } = useFetch();
 
-  useEffect(() => {
-    const fetchCurrentVan = async () => {
-      setLoading(true)
-      const van = await fetchData(`/api/host/vans/${id}`);
-      setCurrentVan(van.vans);
-      setLoading(false)
-    };
-    fetchCurrentVan();
-  }, []);
+  // useEffect(() => {
+  //   const fetchCurrentVan = async () => {
+  //     setLoading(true)
+  //     const van = await fetchData(`/api/host/vans/${id}`);
+  //     setCurrentVan(van.vans);
+  //     setLoading(false)
+  //   };
+  //   fetchCurrentVan();
+  // }, []);
   
-  if (!currentVan)
-    return <div className="flex justify-center items-center">Loading...</div>;
+  // if (!currentVan)
+  //   return <div className="flex justify-center items-center">Loading...</div>;
 
   return (
     <div className="flex flex-col gap-8 pb-8">
