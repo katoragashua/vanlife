@@ -10,10 +10,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@grpc/proto-loader": "^0.7.8",
     "@picocss/pico": "^1.5.10",
+    "firebase": "^10.1.0",
     "mirage.js": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-loader-spinner": "^5.3.4",
     "react-router-dom": "^6.14.2",
     "remixicon": "^3.4.0"
   },

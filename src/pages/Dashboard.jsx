@@ -1,26 +1,36 @@
 import React, {useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import HostVan from "../components/HostVan";
+import { getHostVans } from "../api";
+import { requireAuth } from "../../utils/requireAuth";
+
+
+export const loader = async ({request}) => {
+  await requireAuth(request)
+  const hostVans = await getHostVans()
+  return hostVans
+}
 
 const Dashboard = () => {
-  const [hostVans, setHostVans] = useState(() => []);
+  const hostVans = useLoaderData()
+  // const [hostVans, setHostVans] = useState(() => []);
 
-  useEffect(() => {
-    const fetchVans = async () => {
-      try {
-        const res = await fetch("/api/host/vans");
-        if (!res.ok) {
-          throw new Error("Couldn't fetch vans'.");
-        }
-        const data = await res.json();
-        setHostVans(data.vans.slice(0, 5));
-      } catch (error) {
-        console.log(error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchVans = async () => {
+  //     try {
+  //       const res = await fetch("/api/host/vans");
+  //       if (!res.ok) {
+  //         throw new Error("Couldn't fetch vans'.");
+  //       }
+  //       const data = await res.json();
+  //       setHostVans(data.vans.slice(0, 5));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
-    fetchVans();
-  }, []);
+  //   fetchVans();
+  // }, []);
 
   const hostListedVans = hostVans.map((van) => (
     <HostVan key={van.id} {...van} />

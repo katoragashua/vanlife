@@ -1,10 +1,14 @@
-// import { redirect, Navigate } from "react-router-dom";
-import {redirect} from "./mutateResponse"
+import { redirect, Navigate } from "react-router-dom";
+import { authState } from "../src/api";
 
-export const requireAuth = async () => {
-  const isLoggedIn = localStorage.getItem("loggedIn");
-  if (!isLoggedIn) {
-    throw redirect("/login?message=You must login first.")
+export const requireAuth = async (request) => {
+  const pathname = new URL(request.url).pathname;
+  const user = await authState();
+  console.log(user);
+  if (!user) {
+    throw redirect(
+      `/login?message=You must login first.&redirectTo=${pathname}`
+    );
   }
-  return null
+  return null;
 };

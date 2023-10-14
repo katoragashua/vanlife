@@ -8,18 +8,19 @@ import {
   useLoaderData,
 } from "react-router-dom";
 import TypeBtn from "../../components/TypeBtn";
+import { requireAuth } from "../../../utils/requireAuth";
+import { getHostVan } from "../../api";
 
 export const loader = async ({ request, params }) => {
-  const { fetchData } = useFetch();
-  const vans = await fetchData("/api/host/vans", params.id);
-  console.log(vans);
-  return vans;
+  await requireAuth(request);
+  const hostVan = await getHostVan(params.id);
+  return hostVan;
 };
 
 const HostVanDetail = () => {
-  const data = useLoaderData();
+  const hostVan = useLoaderData();
   // const { id } = useParams();
-  const [currentVan, setCurrentVan] = useState(() => data.vans);
+  // const [currentVan, setCurrentVan] = useState(() => data.vans);
   // const [loading, setLoading] = useState(() => false)
   // const { fetchData } = useFetch();
 
@@ -32,7 +33,7 @@ const HostVanDetail = () => {
   //   };
   //   fetchCurrentVan();
   // }, []);
-  
+
   // if (!currentVan)
   //   return <div className="flex justify-center items-center">Loading...</div>;
 
@@ -63,15 +64,15 @@ const HostVanDetail = () => {
       <section className="host-van-details container bg-white p-6 grid gap-6">
         <div className="host-van-details-img-div flex gap-6 items-center">
           <img
-            src={currentVan.imageUrl}
+            src={hostVan.imageUrl}
             alt=""
             className="max-w-[50%] object-contain"
           />
           <div>
-            <TypeBtn type={currentVan.type} />
-            <h4>{currentVan.name}</h4>
+            <TypeBtn type={hostVan.type} />
+            <h4>{hostVan.name}</h4>
             <div className="flex">
-              <h5>{currentVan.price}</h5>
+              <h5>{hostVan.price}</h5>
               <span>/day</span>
             </div>
           </div>
@@ -120,7 +121,7 @@ const HostVanDetail = () => {
             </li>
           </ul>
         </nav>
-        <Outlet context={{ ...currentVan }} />
+        <Outlet context={{ ...hostVan }} />
       </section>
     </div>
   );

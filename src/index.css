@@ -82,9 +82,13 @@ h6 {
   gap: 4rem;
 }
 
-a:hover {
-  text-decoration: underline;
+.navlink:hover {
+  background-color: #FFCC8D;
+  text-decoration-color: #FFCC8D;
+  
 }
+
+
 
 .filter-btn {
   @apply text-center text-white px-4 py-2 font-semibold rounded-md self-start bg-orange-light hover:cursor-pointer;

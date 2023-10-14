@@ -16,7 +16,7 @@ import ErrorPage from "./pages/ErrorPage.jsx";
 import About from "./pages/About.jsx";
 import Vans, { loader as vansLoader } from "./pages/Vans.jsx";
 import VanDetails, { loader as vanDetailsLoader } from "./pages/VanDetails.jsx";
-import Dashboard from "./pages/Dashboard";
+import Dashboard, { loader as dashboardLoader } from "./pages/Dashboard";
 import Income from "./pages/host/income";
 import Reviews from "./pages/host/reviews";
 import HostVans, { loader as hostVansLoader } from "./pages/host/HostVans";
@@ -30,25 +30,38 @@ import Login, {
   loader as loginLoader,
   action as loginAction,
 } from "./pages/Login";
+import Signup, {
+  action as signupAction,
+  // loader as signupLoader,
+} from "./pages/Signup";
 import { requireAuth } from "../utils/requireAuth";
+
+//For mirage.js
 // import { vanServer } from "./server.js";
 
 // if (process.env.NODE_ENV === "development") {
 //   vanServer({ environment: "development" });
 // }
-
-import "./server";
+//or
+// import "./server";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={"/"} element={<RootLayout />}>
-      <Route index element={<Home />} />
+      <Route index element={<Home />} errorElement={<ErrorPage />} />
       <Route path={"about"} element={<About />} />
       <Route
         path={"login"}
         element={<Login />}
         loader={loginLoader}
         action={loginAction}
+        errorElement={<ErrorPage />}
+      />
+      <Route
+        path={"signup"}
+        element={<Signup />}
+        // loader={signupLoader}
+        action={signupAction}
       />
       <Route
         path={"vans"}
@@ -65,22 +78,52 @@ const router = createBrowserRouter(
         <Route
           index
           element={<Dashboard />}
-          loader={async () => {
-            return await requireAuth();
+          errorElement={<ErrorPage />}
+          loader={dashboardLoader}
+        />
+        <Route
+          path={"income"}
+          element={<Income />}
+          loader={async ({ request }) => {
+            return await requireAuth(request);
           }}
         />
-        <Route path={"income"} element={<Income />} />
         <Route path={"vans"} loader={hostVansLoader} element={<HostVans />} />
         <Route
           path={"vans/:id"}
           loader={hostVanDetailLoader}
           element={<HostVanDetail />}
+          errorElement={<ErrorPage />}
         >
-          <Route index element={<Details />} />
-          <Route path={"pricing"} element={<Pricing />} />
-          <Route path={"photos"} element={<Photos />} />
+          <Route
+            index
+            element={<Details />}
+            loader={async ({ request }) => {
+              return await requireAuth(request);
+            }}
+          />
+          <Route
+            path={"pricing"}
+            element={<Pricing />}
+            loader={async ({ request }) => {
+              return await requireAuth(request);
+            }}
+          />
+          <Route
+            path={"photos"}
+            element={<Photos />}
+            loader={async ({ request }) => {
+              return await requireAuth(request);
+            }}
+          />
         </Route>
-        <Route path={"reviews"} element={<Reviews />} />
+        <Route
+          path={"reviews"}
+          element={<Reviews />}
+          loader={async ({ request }) => {
+            return await requireAuth(request);
+          }}
+        />
       </Route>
       {/* </Route> */}
       {/* <Route path={"*"} element={<ErrorPage />} /> */}

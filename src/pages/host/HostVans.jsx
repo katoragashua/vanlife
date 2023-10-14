@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import HostVan from "../../components/HostVan";
 import { useLoaderData } from "react-router-dom";
 import useFetch from "../../useFetch";
+import { requireAuth } from "../../../utils/requireAuth";
+import { getHostVans } from "../../api";
 
 export const loader = async ({ request, params }) => {
-  const { fetchData } = useFetch();
-  const vans = await fetchData("/api/host/vans");
-  console.log(vans);
-  return vans;
+  await requireAuth(request);
+  const hostVans = await getHostVans();
+  return hostVans;
 };
 
 const HostVans = () => {
-  const data = useLoaderData()
-  console.log(data);
-  const [hostVans, setHostVans] = useState(() => data.vans);
+  const hostVans = useLoaderData();
+  // const [hostVans, setHostVans] = useState(() => data.vans);
 
   // useEffect(() => {
   //   const fetchVans = async () => {

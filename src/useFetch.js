@@ -1,6 +1,6 @@
 const useFetch = () => {
   const fetchData = async (url, id) => {
-    url = id? `${url}/${id}`: url
+    url = id ? `${url}/${id}` : url;
     try {
       const res = await fetch(url);
       if (!res.ok) {

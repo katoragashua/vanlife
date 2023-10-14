@@ -3,24 +3,23 @@ import useFetch from "../useFetch";
 import { useParams, Link, useLocation, useLoaderData } from "react-router-dom";
 import TypeBtn from "../components/TypeBtn";
 import BtnLarge from "../components/BtnLarge";
+import { getVan } from "../api";
 
-export const loader = async({request, params}) => {
-  const {fetchData} = useFetch();
-  const vans = await fetchData("/api/vans", params.id);
-  return vans
-}
-
+export const loader = async ({ request, params }) => {
+  const van = await getVan(params.id);
+  return van;
+};
 
 const VanDetails = () => {
-  const data = useLoaderData()
-  const [van, setVan] = useState(() => data.vans);
+  const van = useLoaderData();
+  // const [van, setVan] = useState(() => vans);
   const { id } = useParams();
   const { fetchData } = useFetch();
 
-  const location = useLocation()
+  const location = useLocation();
 
-  const search  = location.state?.search || ""
-  const type = location.state?.type || "all"
+  const search = location.state?.search || "";
+  const type = location.state?.type || "all";
 
   // useEffect(() => {
   //   const fetchVan = async () => {
@@ -30,12 +29,9 @@ const VanDetails = () => {
   //   fetchVan();
   // }, []);
 
-
-
   return (
-    <div className="container flex flex-col gap-12 pb-28">
-      <Link to={`..${search}`}
-      relative="path">
+    <div className="container flex flex-col gap-12 pb-28 ">
+      <Link to={`..${search}`} relative="path">
         <div className="flex">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -55,19 +51,19 @@ const VanDetails = () => {
           <small className="font-semibold underline">Back to {type} vans</small>
         </div>
       </Link>
-      <div className="van-detail-img">
+      <div className="van-detail-img xl:w-1/2">
         <img src={van.imageUrl} alt={van.description} className="rounded-md" />
       </div>
 
-      <div className="van-info flex flex-col gap-6">
+      <div className="van-info flex flex-col gap-6 xl:w-1/2">
         <TypeBtn type={van.type} />
         <h2>{van.name}</h2>
         <h3>${van.price}/day</h3>
-        <p>
-          {van.description}
-        </p>
+        <p>{van.description}</p>
       </div>
-      <BtnLarge text={"Rent this van"} />
+      <div className="self-start">
+        <BtnLarge text={"Rent this van"} />
+      </div>
     </div>
   );
 };

@@ -5,37 +5,43 @@ import {
   useRouteError,
   useNavigate,
   useActionData,
-  useNavigation
+  useNavigation,
+  redirect,
+  Link,
 } from "react-router-dom";
 import BtnLarge from "../components/BtnLarge";
 import { loginUser } from "../api";
-import { redirect } from "../../utils/mutateResponse";
+// import { redirect } from "../../utils/mutateResponse";
 import { useEffect } from "react";
 
 export const loader = async ({ request }) => {
-  const url = new URL(request.url).searchParams.get("message");
-  return url;
+  const urlMessage = new URL(request.url).searchParams.get("message");
+  const redirectUrl =
+    new URL(request.url).searchParams?.get("redirectTo") || "/host";
+  return { urlMessage, redirectUrl };
 };
 
 export const action = async ({ request, params }) => {
+  const redirectUrl =
+    new URL(request.url).searchParams?.get("redirectTo") || "/host";
   try {
     const formData = await request.formData();
     const body = Object.fromEntries(formData);
-    const data = await loginUser(body);
+    const { email, password } = body;
+    const user = await loginUser({ email, password });
     localStorage.setItem("loggedIn", true);
-    return redirect("/host");
+    return redirect(redirectUrl);
   } catch (error) {
     return error;
   }
 };
 
 const Login = () => {
-  const message = useLoaderData();
+  const { urlMessage, redirectUrl } = useLoaderData();
   const navigate = useNavigate();
 
   // useNavigation to track the state/status of our form submission
-  const {state} = useNavigation();
-  console.log(state);
+  const { state } = useNavigation();
   const errorMessage = useActionData();
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
@@ -54,11 +60,11 @@ const Login = () => {
 
   return (
     <div className="container">
-      <div className="flex flex-col gap-8 pt-4 xl:w-[60%] m-auto ">
+      <div className="flex flex-col gap-8 pt-12 xl:w-[60%] m-auto ">
         <h3 className="text-center">Sign in to your account.</h3>
-        {message && (
+        {urlMessage && (
           <span className="text-center font-semibold" style={{ color: "red" }}>
-            {message}
+            {urlMessage}
           </span>
         )}
         {errorMessage && (
@@ -95,11 +101,21 @@ const Login = () => {
           <span className="text-black font-semibold">
             Don't have an account?
           </span>
-          <span className="text-orange font-semibold">Create one now.</span>
+          <span className="text-orange font-semibold">
+            <Link to={`/signup?${redirectUrl}`}>Create one now.</Link>
+          </span>
         </div>
       </div>
     </div>
   );
 };
+
+// const iPromise = (ms) => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => resolve("Take your gift"), ms);
+//   });
+// };
+
+// iPromise(3000).then((data) => console.log(data));
 
 export default Login;
