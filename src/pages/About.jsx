@@ -12,7 +12,7 @@ const About = () => {
             Don't squeeze in a sedan when you could relax in a van.
           </h2>
           <div className="mission flex flex-col gap-8">
-            <p className="">
+            <p className="lg:max-w-[50%] self-center">
               Our mission is to enliven your road trip with the perfect travel
               van rental. Our vans are recertified before each trip to ensure
               your travel plans can go off without a hitch. (Hitch costs extra
