@@ -17,8 +17,8 @@ import About from "./pages/About.jsx";
 import Vans, { loader as vansLoader } from "./pages/Vans.jsx";
 import VanDetails, { loader as vanDetailsLoader } from "./pages/VanDetails.jsx";
 import Dashboard, { loader as dashboardLoader } from "./pages/Dashboard";
-import Income from "./pages/host/income";
-import Reviews from "./pages/host/reviews";
+import Income from "./pages/host/Income";
+import Reviews from "./pages/host/Reviews";
 import HostVans, { loader as hostVansLoader } from "./pages/host/HostVans";
 import HostVanDetail, {
   loader as hostVanDetailLoader,
@@ -84,9 +84,9 @@ const router = createBrowserRouter(
         <Route
           path={"income"}
           element={<Income />}
-          // loader={async ({ request }) => {
-          //   return await requireAuth(request);
-          // }}
+          loader={async ({ request }) => {
+            return await requireAuth(request);
+          }}
         />
         <Route path={"vans"} loader={hostVansLoader} element={<HostVans />} />
         <Route
